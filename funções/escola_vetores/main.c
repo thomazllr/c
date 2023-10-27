@@ -36,8 +36,8 @@ int main()
         printf("Nota do bimestre ==> %2.f", notasBimestrais[i]);
     }
 
-    final = notaFinal(notasBimestrais[0], notasBimestrais[1], notasBimestrais[2], notasBimestrais[3]);
-    printf("\n\nNOTA FINAL ==> %.2f", final);
+    final = notaFinal(notasBimestrais);
+    printf("\n\nNOTA FINAL ==> %.2f\n", final);
 
     // status(final, presenca);
 

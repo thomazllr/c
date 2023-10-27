@@ -6,9 +6,9 @@ float notaBimestral(float x, float y)
     return (x * 0.6) + (y * 0.4);
 }
 
-float notaFinal(float a, float b, float c, float d)
+float notaFinal(float *vnota)
 {
-    return (a + b + c + d) / 4;
+    return (vnota[0] + vnota[1] + vnota[2] + vnota[3]) / 4;
 }
 
 float calculoPresenca(float x, float y)
