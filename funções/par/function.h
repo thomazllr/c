@@ -1,0 +1,1 @@
+int par_ou_impar(int x);
