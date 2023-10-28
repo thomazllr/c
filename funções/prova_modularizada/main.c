@@ -44,7 +44,8 @@ int main()
     {
         printf("1-Relatorio por Semana\n"
                "2-Relatorio por Produtor\n"
-               "3-Relatorio de abastecimento\n");
+               "3-Relatorio de abastecimento\n"
+               "4-Sair\n");
         printf("\n\nQual opcao deseja buscar ==> ");
         scanf("%d", &op);
 
