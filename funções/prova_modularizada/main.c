@@ -16,13 +16,16 @@
 int main()
 {
 
-    int produtos[50][2][15], k, i;
+    int produtos[50][2][15], k, i, cont[15], semana;
     char op;
 
     for (k = 0; k < 3; k++)
     {
+        printf("\n\nSEMANA [%d]\n\n", k + 1);
+        cont[k] = 0;
         for (i = 0; i < 50; i++)
         {
+            cont[k]++;
             printf("DIGITE O NUMERO DE ALFACES ==> ");
             scanf("%d", &produtos[i][0][k]);
             printf("DIGITE O NUMERO DE REPOLHOS ==> ");
@@ -35,8 +38,9 @@ int main()
             }
         }
     }
-
-    relatorioSemana(produtos);
+    printf("Digite a semana que deseja buscar ==> ");
+    scanf("%d", &semana);
+    relatorioSemana(produtos, semana, cont[semana]);
 
     return 0;
 }
