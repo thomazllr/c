@@ -49,11 +49,15 @@ int relatorioAbastecimento(int m[][2][15])
 
     if (soma_alface + soma_repolho < 500)
     {
+        printf("\033[31m");
         printf("\n\nRISCO DE DESABASTECIMENTO\n\n");
+        printf("\033[0m");
     }
     else if (total_alface > 1300 || total_repolho > 1200)
     {
+        printf("\033[32m");
         printf("\n\nSUPER PRODUCTION\n\n");
+        printf("\033[0m");
     }
 
     if (zeradas > 0)
