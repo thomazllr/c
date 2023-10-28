@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include "functions.h"
 
-int relatorioSemana(int m[][2][15], int semana, int qtd)
+int relatorioSemana(int m[][2][15], int semana)
 {
     int i, soma_alface = 0, soma_repolho = 0;
-    for (i = 0; i < qtd; i++)
+    for (i = 0; i < 50; i++)
     {
         soma_alface += m[i][0][semana];
         soma_repolho += m[i][1][semana];

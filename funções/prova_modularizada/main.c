@@ -17,16 +17,14 @@
 int main()
 {
     setlocale(LC_ALL, "pt_BR.utf8");
-    int produtos[50][2][15] = {{{0}}}, k, i, cont[15], semana, produtor;
+    int produtos[50][2][15] = {{{0}}}, k, i, semana, produtor;
     char op;
 
     for (k = 0; k < 3; k++)
     {
         printf("\n\nSEMANA [%d]\n\n", k + 1);
-        cont[k] = 0;
         for (i = 0; i < 50; i++)
         {
-            cont[k]++;
             printf("PRODUTOR [%d]\n\n", i + 1);
             printf("DIGITE O NUMERO DE ALFACES ==> ");
             scanf("%d", &produtos[i][0][k]);
@@ -54,12 +52,12 @@ int main()
         case 1:
             printf("Digite a semana que deseja buscar ==> ");
             scanf("%d", &semana);
-            relatorioSemana(produtos, semana, cont[semana]);
+            relatorioSemana(produtos, semana--);
             break;
         case 2:
             printf("Digite o produtor que deseja verificar ==> ");
             scanf("%d", &produtor);
-            relatorioProdutor(produtos, produtor);
+            relatorioProdutor(produtos, produtor--);
             break;
         case 3:
             relatorioAbastecimento(produtos);
