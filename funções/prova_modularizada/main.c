@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "functions.h"
 #include <locale.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -38,7 +39,7 @@ int main()
             }
         }
     }
-
+    system("cls");
     do
     {
         printf("1-Relatorio por Semana\n"
@@ -52,11 +53,13 @@ int main()
         case 1:
             printf("Digite a semana que deseja buscar ==> ");
             scanf("%d", &semana);
-            relatorioSemana(produtos, semana--);
+            semana--;
+            relatorioSemana(produtos, semana);
             break;
         case 2:
             printf("Digite o produtor que deseja verificar ==> ");
             scanf("%d", &produtor);
+            produtor--;
             relatorioProdutor(produtos, produtor--);
             break;
         case 3:
