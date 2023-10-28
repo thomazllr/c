@@ -20,7 +20,9 @@ float divi(float a, float b)
 {
     if (a == 0)
     {
+        printf("\033[31m");
         printf("Nao eh possivel realizar a divisao\n");
+        printf("\033[0m");
         return 0;
     }
     else

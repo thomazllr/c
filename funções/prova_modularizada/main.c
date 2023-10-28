@@ -12,11 +12,12 @@
 
 #include <stdio.h>
 #include "functions.h"
+#include <locale.h>
 
 int main()
 {
-
-    int produtos[50][2][15], k, i, cont[15], semana;
+    setlocale(LC_ALL, "pt_BR.utf8");
+    int produtos[50][2][15] = {{{0}}}, k, i, cont[15], semana, produtor;
     char op;
 
     for (k = 0; k < 3; k++)
@@ -26,6 +27,7 @@ int main()
         for (i = 0; i < 50; i++)
         {
             cont[k]++;
+            printf("PRODUTOR [%d]\n\n", i + 1);
             printf("DIGITE O NUMERO DE ALFACES ==> ");
             scanf("%d", &produtos[i][0][k]);
             printf("DIGITE O NUMERO DE REPOLHOS ==> ");
@@ -38,9 +40,33 @@ int main()
             }
         }
     }
-    printf("Digite a semana que deseja buscar ==> ");
-    scanf("%d", &semana);
-    relatorioSemana(produtos, semana, cont[semana]);
+
+    do
+    {
+        printf("1-Relatorio por Semana\n"
+               "2-Relatorio por Produtor\n"
+               "3-Relatorio de abastecimento\n");
+        printf("\n\nQual opcao deseja buscar ==> ");
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 1:
+            printf("Digite a semana que deseja buscar ==> ");
+            scanf("%d", &semana);
+            relatorioSemana(produtos, semana, cont[semana]);
+            break;
+        case 2:
+            printf("Digite o produtor que deseja verificar ==> ");
+            scanf("%d", &produtor);
+            relatorioProdutor(produtos, produtor);
+            break;
+        case 3:
+            relatorioAbastecimento(produtos);
+            break;
+        }
+
+    } while (op != 4);
 
     return 0;
 }
