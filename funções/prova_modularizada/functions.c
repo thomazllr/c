@@ -30,22 +30,26 @@ int relatorioProdutor(int m[][2][15], int produtor)
 
 int relatorioAbastecimento(int m[][2][15])
 {
-    int i, k, soma_alface = 0, soma_repolho = 0, total_alface, total_repolho, zeradas = 0;
+    int i, k, soma_alface, soma_repolho, total_alface = 0, total_repolho = 0, zeradas = 0;
 
     for (k = 0; k < 15; k++)
     {
+        soma_alface = 0;
+        soma_repolho = 0;
         for (i = 0; i < 50; i++)
         {
             soma_alface += m[i][0][k];
             soma_repolho += m[i][1][k];
-            if (soma_alface == 0 && soma_alface == 0)
-            {
-                zeradas++;
-            }
         }
+        if (soma_alface == 0 && soma_alface == 0)
+        {
+            zeradas++;
+        }
+        total_alface += soma_alface;
+        total_repolho += soma_repolho;
     }
-    printf("Total de alfaces no periodo ==> %d\n", soma_alface);
-    printf("Total de repolho no periodo ==> %d\n", soma_repolho);
+    printf("Total de alfaces no periodo ==> %d\n", total_alface);
+    printf("Total de repolho no periodo ==> %d\n", total_repolho);
 
     if (soma_alface + soma_repolho < 500)
     {
