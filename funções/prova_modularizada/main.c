@@ -21,7 +21,7 @@ int main()
     int produtos[50][2][15] = {{{0}}}, k, i, semana, produtor, option;
     char op;
 
-    for (k = 0; k < 3; k++)
+    for (k = 0; k < 15; k++)
     {
         printf("\n\nSEMANA [%d]\n\n", k + 1);
         for (i = 0; i < 50; i++)
