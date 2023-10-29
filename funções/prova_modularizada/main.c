@@ -18,7 +18,7 @@
 int main()
 {
     setlocale(LC_ALL, "pt_BR.utf8");
-    int produtos[50][2][15] = {{{0}}}, k, i, semana, produtor;
+    int produtos[50][2][15] = {{{0}}}, k, i, semana, produtor, option;
     char op;
 
     for (k = 0; k < 3; k++)
@@ -47,9 +47,9 @@ int main()
                "3-Relatorio de abastecimento\n"
                "4-Sair\n");
         printf("\n\nQual opcao deseja buscar ==> ");
-        scanf("%d", &op);
+        scanf("%d", &option);
 
-        switch (op)
+        switch (option)
         {
         case 1:
             printf("Digite a semana que deseja buscar ==> ");
@@ -68,7 +68,7 @@ int main()
             break;
         }
 
-    } while (op != 4);
+    } while (option != 4);
 
     return 0;
 }
