@@ -12,23 +12,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdlib.h>
 #include "functions.h"
+#include "produtor.h"
 
 #define QT_PRODUTOR 50
-#define SEMANAS 15
-
-struct produtor
-{
-    int alface;
-    int repolho;
-};
-
-typedef struct produtor produtor;
+#define SEMANAS 3
 
 int main()
 {
-    produtor produtor[SEMANAS];
-    int i, k;
+    produtor produtor[QT_PRODUTOR][SEMANAS] = {0};
+    int i, k, option, semana, um;
     char op;
 
     for (k = 0; k < SEMANAS; k++)
@@ -38,9 +32,9 @@ int main()
         {
             printf("PRODUTOR [%d]\n\n", i + 1);
             puts("Quantidade de alface --> ");
-            scanf("%d", &produtor[k].alface);
+            scanf("%d", &produtor[i][k].alface);
             puts("Quantidade de repolho --> ");
-            scanf("%d", &produtor[k].repolho);
+            scanf("%d", &produtor[i][k].repolho);
             printf("Deseja continuar? ==> ");
             scanf(" %c", &op);
             if (op == 'n')
@@ -50,10 +44,37 @@ int main()
         }
     }
 
+    system("cls");
+
     do
     {
+        printf("1-Relatorio por Semana\n"
+               "2-Relatorio por Produtor\n"
+               "3-Relatorio de abastecimento\n"
+               "4-Sair\n");
+        printf("\n\nQual opcao deseja buscar ==> ");
+        scanf("%d", &option);
 
-    } while (op != 4);
+        switch (option)
+        {
+        case 1:
+            printf("Qual semana deseja buscar? ");
+            scanf("%d", &semana);
+            semana--;
+            relatorioSemana(produtor, semana);
+            break;
+        case 2:
+            printf("Qual produtor deseja conferir? ");
+            scanf("%d", &um);
+            um--;
+            relatorioProdutor(produtor, um);
+            break;
+
+        default:
+            break;
+        }
+
+    } while (option != 4);
 
     return 0;
 }
