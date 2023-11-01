@@ -61,7 +61,7 @@ int main()
             printf("Digite o produtor que deseja verificar ==> ");
             scanf("%d", &produtor);
             produtor--;
-            relatorioProdutor(produtos, produtor--);
+            relatorioProdutor(produtos, produtor);
             break;
         case 3:
             relatorioAbastecimento(produtos);
