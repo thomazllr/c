@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 int main()
@@ -9,6 +10,10 @@ int main()
     sleep(2);
 
     printf("Atraso de 2 segundos\n");
+
+    system("clear");
+    printf("Limpando a tela.\n\n");
+    system("pause");
 
     return 0;
 }
