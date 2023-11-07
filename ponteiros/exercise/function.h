@@ -1,0 +1,1 @@
+float percent(float number);
