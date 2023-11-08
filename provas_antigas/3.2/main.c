@@ -1,42 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "functions.h"
+#include <stdbool.h>
 
-#define TURMAS 2
-#define ALUNOS 5
+#include "header.h"
 
 int main()
 {
-
-    float escola[ALUNOS][3][TURMAS];
-    int i, j, k, cont[2], option, total_aulas, aluno, turma;
-    float notas[5][2];
-    char nome[5][2][50];
+    dadosAlunos alunos[ALUNOS][TURMAS];
+    dadosTurmas class;
     char op;
-
-    printf("Digite o numero total de aulas ==> ");
-    scanf("%d", &total_aulas);
+    int i, k, j, option, turma, aluno, cont[2];
 
     for (k = 0; k < TURMAS; k++)
     {
-        printf("\n\nTURMA [%d]\n", k + 1);
         cont[k] = 0;
+        printf("\n\nTURMA [%d]\n", k + 1);
         for (i = 0; i < ALUNOS; i++)
         {
             cont[k]++;
             fflush(stdin);
             printf("\nAluno [%d]\n", i + 1);
             printf("Digite o nome do aluno: ");
-            scanf("%[^\n]", &nome[i][k]);
-            fflush(stdin);
+            scanf("%[^\n]", &alunos[i][k].nome);
             printf("Digite a primeira nota: ");
-            scanf("%f", &escola[i][0][k]);
+            scanf("%f", &alunos[i][k].n1);
             printf("Digite a segunda nota: ");
-            scanf("%f", &escola[i][1][k]);
+            scanf("%f", &alunos[i][k].n2);
             printf("Digite a terceira nota: ");
-            scanf("%f", &escola[i][2][k]);
+            scanf("%f", &alunos[i][k].n3);
             printf("Frequencia do aluno: ");
-            scanf("%f", &escola[i][3][k]);
+            scanf("%d", &alunos[i][k].presenca);
             printf("Deseja adicionar mais um aluno(s/n)? ==> ");
             scanf(" %c", &op);
             if (op == 'n')
@@ -48,17 +41,11 @@ int main()
 
     system("cls");
 
-    calculoNotas2(escola, notas);
-    p do
+    do
     {
         system("cls");
-        printf("\nO que deseja fazer?\n\n"
-               "1- Consulta por aluno\n"
-               "2- Consulta por turma\n"
-               "3- Sair\n"
-               "Option ==> ");
+        menu();
         scanf("%d", &option);
-
         switch (option)
         {
         case 1:
@@ -78,11 +65,14 @@ int main()
                 system("pause");
                 break;
             }
-            consultaAluno(escola, nome, aluno, turma, total_aulas, notas);
+            consultaAluno(alunos, aluno, turma);
+            break;
+
+        default:
             break;
         }
-    }
-    while (option != 3)
-        ;
+
+    } while (option != 3);
+
     return 0;
 }
