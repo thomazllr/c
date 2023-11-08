@@ -1,0 +1,1 @@
+int calcula(int *x, int *y);
