@@ -22,6 +22,7 @@ int main()
             printf("\nAluno [%d]\n", i + 1);
             printf("Digite o nome do aluno: ");
             scanf("%[^\n]", &alunos[i][k].nome);
+            fflush(stdin);
             printf("Digite a primeira nota: ");
             scanf("%f", &alunos[i][k].n1);
             printf("Digite a segunda nota: ");
@@ -39,11 +40,11 @@ int main()
         }
     }
 
-    system("cls");
+    system("clear");
 
     do
     {
-        system("cls");
+        system("clear");
         menu();
         scanf("%d", &option);
         switch (option)
