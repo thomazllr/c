@@ -41,7 +41,6 @@ int main()
             {
                 break;
             }
-            continue;
         }
         else
         {
@@ -98,6 +97,41 @@ int main()
             relatorioVeiculo(carro, codigo, color);
             break;
         case 5:
+            if (i < 25)
+            {
+                printf("Digite o codigo do novo veiculo ==> ");
+                scanf("%d", &codigo);
+                printf("Digite a cor do novo veiculo ==> ");
+                scanf("%d", &color);
+                existe = checkCar(carro, codigo, color);
+                if (existe == 1)
+                {
+                    printf("\033[34mCarro existente\033[0m\n");
+                    id_Existente = returnID(carro, codigo);
+                    printf("Quantos veiculos quer adicionar? ");
+                    scanf("%d", &new_cars);
+                    carro[id_Existente].qtd += new_cars;
+                    garagem += new_cars;
+                    limite = checkGaragem(carro, &garagem, id_Existente);
+                    if (limite == 1)
+                    {
+                        break;
+                    }
+                    i = 25;
+                    continue;
+                }
+                printf("Digite a quantidade de veiculos ==> ");
+                scanf("%d", &qtd);
+                carro[i].id = codigo;
+                carro[i].cor = color;
+                garagem += carro[i].qtd;
+                limite = checkGaragem(carro, &garagem, i);
+                i = 25;
+            }
+            else
+            {
+                printf("\033[31mNao eh possivel adicionar mais carros novos.\033[0m\n");
+            }
             break;
         }
 

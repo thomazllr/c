@@ -143,7 +143,7 @@ void checkCor(int color)
         printf("\033[41;30mVermelho\033[0m\n");
     }
     else
-        printf("\033[47;30mCinza!\033[0m");
+        printf("\033[47;30mCinza!\033[0m\n");
 }
 
 void relatorioCodigo(carro carro[25], int codigo, int color)
@@ -187,16 +187,4 @@ void relatorioVeiculo(carro carro[25], int codigo, int color)
 
 void cadastroVeiculo(carro carro[25], int codigo, int cor)
 {
-    int i;
-    for (i = 0; i < 25; i++)
-    {
-        if (carro[i].id == -1)
-        {
-            carro[i].id = codigo;
-            carro[i].cor = cor;
-            printf("Digite o quantidade de veiculos ==> ");
-            scanf("%d", &carro[i].qtd);
-            break;
-        }
-    }
 }
