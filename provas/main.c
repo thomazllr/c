@@ -47,22 +47,21 @@ int main()
             printf("\033[31mCarro nao registrado\033[0m\n");
             carro[i].id = codigo;
             carro[i].cor = color;
-        }
+            printf("Digite o quantidade de veiculos ==> ");
+            scanf("%d", &carro[i].qtd);
+            limite = checkGaragem(carro, &garagem, i);
+            garagem += carro[i].qtd;
+            if (limite == 1)
+            {
+                break;
+            }
 
-        printf("Digite o quantidade de veiculos ==> ");
-        scanf("%d", &carro[i].qtd);
-        limite = checkGaragem(carro, &garagem, i);
-        garagem += carro[i].qtd;
-        if (limite == 1)
-        {
-            break;
-        }
-
-        printf("\nDeseja adicionar mais um carro? ");
-        scanf(" %c", &op);
-        if (op == 'n')
-        {
-            break;
+            printf("\nDeseja adicionar mais um carro? ");
+            scanf(" %c", &op);
+            if (op == 'n')
+            {
+                break;
+            }
         }
     }
     system("cls");
@@ -85,9 +84,7 @@ int main()
         case 3:
             printf("Digite o codigo do veiculo ==> ");
             scanf("%d", &codigo);
-            printf("Digite a cor que deseja buscar ==> ");
-            scanf("%d", &color);
-            relatorioCodigo(carro, codigo, color);
+            relatorioCodigo(carro, codigo);
             break;
         case 4:
             printf("Digite o codigo do veiculo ==> ");

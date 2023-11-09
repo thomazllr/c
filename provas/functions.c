@@ -73,12 +73,6 @@ int checkGaragem(carro carro[25], int *garagem, int i)
     }
     return 0;
 }
-
-void addVeiculos(carro carro[25], int new_cars, int *existente)
-{
-    carro[*existente].qtd += new_cars;
-}
-
 void relatorioGeral(carro carro[25], int *garagem)
 {
     int i;
@@ -146,20 +140,27 @@ void checkCor(int color)
         printf("\033[47;30mCinza!\033[0m\n");
 }
 
-void relatorioCodigo(carro carro[25], int codigo, int color)
+void relatorioCodigo(carro carro[25], int codigo)
 {
     int total = 0, i;
     for (i = 0; i < 25; i++)
     {
         if (carro[i].id != -1)
         {
-            if (codigo == carro[i].id && color == carro[i].cor)
+            if (codigo == carro[i].id)
             {
+                printf("==========\n");
+                printf("Codigo: %d\n", carro[i].id);
+                printf("Cor: ");
+                checkCor(carro[i].cor);
+                printf("Quantidade: %d\n", carro[i].qtd);
+                printf("==========\n");
                 total += carro[i].qtd;
             }
         }
     }
-    printf("Total de veiculos da mesma cor e codigo: %d", total);
+    printf("Total de veiculos com o mesmo codigo: %d", total);
+    system("pause");
 }
 
 void relatorioVeiculo(carro carro[25], int codigo, int color)
@@ -183,8 +184,4 @@ void relatorioVeiculo(carro carro[25], int codigo, int color)
             return;
         }
     }
-}
-
-void cadastroVeiculo(carro carro[25], int codigo, int cor)
-{
 }
