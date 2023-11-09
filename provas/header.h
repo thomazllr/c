@@ -13,15 +13,18 @@ void menu();
 
 void cor();
 
-int checkID(carro carro[25], int id);
+void clearing(carro carro[25]);
 
-int checkCar(carro carro[25], int id, int color);
+int checkCar(carro carro[25], int codigo, int color);
+void checkCor(int color);
+int checkGaragem(carro carro[25], int *garagem, int i);
 
-int addCar(carro carro[25], int *new_cars);
+void addVeiculos(carro carro[25], int new_cars, int *existente);
 
-int addCarro();
+int returnID(carro carro[25], int codigo);
 
-void relatorioGeral(carro carro[25]);
+void relatorioGeral(carro carro[25], int *garagem);
 void relatorioCor(carro carro[25], int cor);
-void relatorioCodigo(carro carro[25], int codigo);
-void relatorioVeiculo(carro carro[25], int codigo, int cor);
+void relatorioCodigo(carro carro[25], int codigo, int color);
+void relatorioVeiculo(carro carro[25], int codigo, int color);
+void cadastroVeiculo(carro carro[25], int codigo, int cor);

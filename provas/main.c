@@ -7,47 +7,66 @@ int main()
 
     carro carro[25];
 
-    int codigo, color, qtd, limite = 0;
-    int i, k, j, existe, new_id, option;
-    int garagem = 0;
+    int codigo, color, qtd, id_Existente = 0;
+    int i, k, j, existe, option, limite = 0;
+    int garagem = 0, new_cars;
     char op;
+
+    clearing(carro);
 
     for (i = 0; i < 25; i++)
     {
-        printf("Digite o código do veiculo ==> ");
+        system("cls");
+        printf("Digite o codigo do veiculo ==> ");
         scanf("%d", &codigo);
         cor();
         scanf("%d", &color);
         existe = checkCar(carro, codigo, color);
         if (existe == 1)
         {
-            printf("Carro existente\n");
-            printf("Deseja adicionar quantos veiculos? ");
-            addCar(&carro);
+            printf("\033[34mCarro existente\033[0m\n");
+            id_Existente = returnID(carro, codigo);
+            printf("Quantos veiculos quer adicionar? ");
+            scanf("%d", &new_cars);
+            carro[id_Existente].qtd += new_cars;
+            garagem += new_cars;
+            limite = checkGaragem(carro, &garagem, id_Existente);
+            if (limite == 1)
+            {
+                break;
+            }
+            printf("\nDeseja adicionar mais um carro? ");
+            scanf(" %c", &op);
+            if (op == 'n')
+            {
+                break;
+            }
+            continue;
         }
         else
         {
-            printf("Carro nao existente\n");
+            printf("\033[31mCarro nao registrado\033[0m\n");
             carro[i].id = codigo;
             carro[i].cor = color;
         }
 
         printf("Digite o quantidade de veiculos ==> ");
         scanf("%d", &carro[i].qtd);
+        limite = checkGaragem(carro, &garagem, i);
         garagem += carro[i].qtd;
-        printf("Deseja adicionar mais um carro? ");
+        if (limite == 1)
+        {
+            break;
+        }
+
+        printf("\nDeseja adicionar mais um carro? ");
         scanf(" %c", &op);
         if (op == 'n')
         {
             break;
         }
-
-        if (garagem > 150)
-        {
-            printf("Limite Máximo atingindo");
-            break;
-        }
     }
+    system("cls");
 
     do
     {
@@ -57,10 +76,32 @@ int main()
         switch (option)
         {
         case 1:
+            relatorioGeral(carro, &garagem);
+            break;
+        case 2:
+            cor();
+            scanf("%d", &color);
+            relatorioCor(carro, color);
+            break;
+        case 3:
+            printf("Digite o codigo do veiculo ==> ");
+            scanf("%d", &codigo);
+            printf("Digite a cor que deseja buscar ==> ");
+            scanf("%d", &color);
+            relatorioCodigo(carro, codigo, color);
+            break;
+        case 4:
+            printf("Digite o codigo do veiculo ==> ");
+            scanf("%d", &codigo);
+            printf("Digite a cor do veiculo ==> ");
+            scanf("%d", &color);
+            relatorioVeiculo(carro, codigo, color);
+            break;
+        case 5:
             break;
         }
 
-    } while (option != 5);
+    } while (option != 6);
 
     return 0;
 }
