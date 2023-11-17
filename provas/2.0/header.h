@@ -1,9 +1,14 @@
+#include <stdio.h>
 
-#ifndef HEADER_H
-#define HEADER_H
+struct Car {
+    int id;
+    int cor;
+    int qtd;
+};
+typedef struct Car Car;
 
-// function declarations
-void foo();
-int bar(int x, int y);
+void createFile();
+void readData();
 
-#endif
+void cor();
+int checkCar(Car carro[25], int codigo, int cor, int *id_Existente);
