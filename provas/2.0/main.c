@@ -3,7 +3,9 @@
 
 int main()
 {
+    Car carro[25];
 
+    Dealership(carro);
    
     
 }

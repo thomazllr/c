@@ -1,47 +1,100 @@
 #include <stdio.h>
 #include "header.h"
 
-void clearing(Car carro[25]) {
-    int i;
 
-    for(i=0;i<25;i++) {
-        carro[i].id = -1;
+int cont = 0;
+
+void Dealership(Car *carro) {
+    FILE *file = fopen("dados.txt", "r");
+    if (file == NULL) {
+        createFile();
+    }
+    else {
+        fclose(file);
+        fill(carro, cont);
     }
 }
-
 void createFile() {
+    int cont;
+    Car carro[25];
     FILE *file;
     file = fopen("dados.txt", "w");
+    cont = readData(carro);
+    updateFile(carro, cont);
     fclose(file);
 }
 
-void readData() {
-    Car carro[25];
-    int i, codigo, color, existe, id_Existente = 0, new_cars;
+void updateFile(Car *carro, int cont) {
+    int i;
+    FILE *file;
+    file = fopen("dados.txt", "w");
+    for(i = 0; i < cont ; i++) {
+        fprintf(file, "Id: %d / Cor: %d / Quantidade: %d\n", carro[i].id, carro[i].cor, carro[i].qtd);
+        fprintf(file, "-------------------------------------------\n");
+    }
+
+    
+    fclose(file);
+}
+void fill(Car *carro, int cont) {
+    FILE *file;
+    int i;
+    file = fopen("dados.txt", "r");
+    for(i = 0; i < cont ; i++) {
+        fscanf(file, "%d %d %d", carro[i].id, carro[i].cor, carro[i].qtd);
+    }
+    fclose(file);
+}
+
+int readData(Car *carro) {
+    int i, codigo, color, existe, id_Existente = 0, new_cars, garagem = 0, total = 0;
+    char op;
     for(i=0;i<25;i++) 
     {
-        printf("Digite o ID do veículo: ");
+        printf("Digite o ID do veiculo: ");
         scanf("%d", &codigo);
         cor();
         scanf("%d", &color);
-        existe = checkCar(carro, codigo, color, &id_Existente);
+        checkingColor(&color);
+        existe = checkCar(carro, cont, codigo, color, &id_Existente);
         if(existe == 1) {
-            printf("Carro existente!");
+            i = i - 1;
+            printf("Carro existente!\n");
             printf("Quantos carros novos deseja adicionar? ");
             scanf("%d", &new_cars);
             carro[id_Existente].qtd += new_cars;
+            garagem += new_cars;
+            total = checkingGaragem(&garagem, carro, id_Existente);
+            if(total == 1) {
+                break;
+            }
+            printf("Deseja adicionar mais carros? (S/N) ");
+            scanf(" %c", &op);
+            if(op == 'n') {
+                break;
+            }
         }
         else {
-            printf("Carro não registrado");
+            printf("Carro nao registrado\n");
+            cont += 1;
             carro[i].id = codigo;
             carro[i].cor = color;
             printf("Quantos carros deseja adicionar? ");
             scanf("%d", &carro[i].qtd);
+            garagem += carro[i].qtd;
+            total = checkingGaragem(&garagem, carro, i);
+            if(total == 1) {
+                break;
+            }
+            printf("Deseja adicionar mais carros? (S/N) ");
+            scanf(" %c", &op);
+            if(op == 'n') {
+                break;
+            }
         }
     }
-    
+    return cont;
 }
-
 void cor() {
         printf("\nDigite a cor do veiculo\n"
            "1-Branco\n"
@@ -51,11 +104,10 @@ void cor() {
            "\n==> ");
 }
 
-int checkCar(Car carro[25], int codigo,  int color, int *id_Existente) {
+int checkCar(Car carro[25], int cont, int codigo,  int color, int *id_Existente) {
 
     int i;
-
-    for(i=0;i<25;i++ && carro[i].id != -1) {
+    for(i=0;i<=cont;i++) {
         if(carro[i].id == codigo && carro[i].cor == color) {
             *id_Existente = i;
             return 1;     
@@ -65,3 +117,26 @@ int checkCar(Car carro[25], int codigo,  int color, int *id_Existente) {
 
 
 }
+
+void checkingColor(int *color) {
+    if(*color < 1 || *color > 4) {
+        printf("Cor inválida, digite novamente: ");
+        scanf("%d", color);
+        checkingColor(color);
+    }
+}
+
+int checkingGaragem(int *garagem, Car carro[25], int i) {
+
+    int excesso;
+    if (*garagem > 150)
+    {
+        printf("Limite maximo atingindo!\n");
+        excesso = *garagem - 150;
+        *garagem -= excesso;
+        carro[i].qtd -= excesso;
+        return 1;
+    }
+    return 0;
+}
+

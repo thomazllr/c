@@ -7,8 +7,13 @@ struct Car {
 };
 typedef struct Car Car;
 
-void createFile();
-void readData();
 
+void Dealership(Car *carro);
+void createFile();
+void updateFile(Car *carro, int cont);
+void fill(Car *carro, int cont);
+int readData(Car *carro);
 void cor();
-int checkCar(Car carro[25], int codigo, int cor, int *id_Existente);
+void checkingColor(int *color);
+int checkCar(Car carro[25], int cont, int codigo,  int color, int *id_Existente);
+int checkingGaragem(int *garagem, Car carro[25], int i);
