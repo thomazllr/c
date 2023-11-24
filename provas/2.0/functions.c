@@ -4,18 +4,16 @@
 
 int cont = 0;
 
-void Dealership(Car *carro) {
+void Dealership(Car *carro, int *cont) {
     FILE *file = fopen("dados.txt", "r");
     if (file == NULL) {
         createFile();
     }
     else {
-        fclose(file);
         fill(carro, cont);
     }
 }
 void createFile() {
-    int cont;
     Car carro[25];
     FILE *file;
     file = fopen("dados.txt", "w");
@@ -36,12 +34,14 @@ void updateFile(Car *carro, int cont) {
     
     fclose(file);
 }
-void fill(Car *carro, int cont) {
+void fill(Car *carro, int *cont) {
     FILE *file;
     int i;
     file = fopen("dados.txt", "r");
-    for(i = 0; i < cont ; i++) {
-        fscanf(file, "%d %d %d", carro[i].id, carro[i].cor, carro[i].qtd);
+    for(i = 0; i < 2 ; i++) {
+        fscanf(file, "Id: %d / Cor: %d / Quantidade: %d\n", &carro[i].id, &carro[i].cor, &carro[i].qtd);
+        char temp[50];
+        fgets(temp, 50, file);
     }
     fclose(file);
 }
@@ -95,6 +95,7 @@ int readData(Car *carro) {
     }
     return cont;
 }
+
 void cor() {
         printf("\nDigite a cor do veiculo\n"
            "1-Branco\n"
@@ -140,3 +141,14 @@ int checkingGaragem(int *garagem, Car carro[25], int i) {
     return 0;
 }
 
+void relatorioGeral(Car *carro, int cont) {
+    int i;
+    int total =0;
+
+    for(i=0;i<cont;i++) {
+        printf("Id: %d / Cor: %d / Quantidade: %d\n", carro[i].id, carro[i].cor, carro[i].qtd);
+        total += carro[i].qtd;
+        printf("-------------------------------------------------\n");
+    }
+    printf("Quantidade total de carros: %d", total); 
+}
