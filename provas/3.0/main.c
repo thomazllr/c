@@ -2,10 +2,9 @@
 #include "header.h"
 
 int main() {
+    Car carro[25];
 
-    Garage garagem;
-
-    createFile(garagem);
+    createFile(carro);
 
     // Relatorios
 
