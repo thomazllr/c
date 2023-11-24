@@ -4,6 +4,7 @@
         "*.embeddedhtml": "html",
         "stdio.h": "c",
         "functions.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "header.h": "c"
     }
 }

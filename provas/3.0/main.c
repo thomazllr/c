@@ -3,7 +3,9 @@
 
 int main() {
 
-    createFile();
+    Garage garagem;
+
+    createFile(garagem);
 
     // Relatorios
 

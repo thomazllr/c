@@ -108,7 +108,7 @@ void cor() {
 int checkCar(Car carro[25], int cont, int codigo,  int color, int *id_Existente) {
 
     int i;
-    for(i=0;i<=cont;i++) {
+    for(i=0;i<=2;i++) {
         if(carro[i].id == codigo && carro[i].cor == color) {
             *id_Existente = i;
             return 1;     
@@ -145,7 +145,7 @@ void relatorioGeral(Car *carro, int cont) {
     int i;
     int total =0;
 
-    for(i=0;i<cont;i++) {
+    for(i=0;i<2;i++) {
         printf("Id: %d / Cor: %d / Quantidade: %d\n", carro[i].id, carro[i].cor, carro[i].qtd);
         total += carro[i].qtd;
         printf("-------------------------------------------------\n");

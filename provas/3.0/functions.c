@@ -1,14 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "header.h"
 
 int cont = 0;
 
-void createFile() {
-    Garage *garagem;
+void createFile(Garage *garagem) {
     FILE *file = fopen("binario", "rb");
     if (file == NULL) {
         cont = readData(garagem);
         updateFile(garagem, cont);
+        fclose(file);
     }
     fill(garagem, cont);
 }
@@ -45,7 +46,7 @@ int readData(Garage *garagem) {
         scanf("%d", &cor);
         checkingColor(&cor);
         existe = checkCar(garagem, cont, codigo, cor, &id_Existente);
-        if(existe == 1) {
+        if(existe) {
             i = i - 1;
             printf("Carro existente!\n");
             printf("Quantos carros novos deseja adicionar? ");
@@ -53,7 +54,7 @@ int readData(Garage *garagem) {
             garagem->carro[id_Existente].quantity += new_cars;
             garagem->total += new_cars;
             max = checkingGaragem(garagem, id_Existente);
-            if(max == 1) {
+            if(max) {
                 break;
             }
             printf("Deseja adicionar mais carros? (S/N) ");
@@ -104,7 +105,6 @@ int checkCar(Garage *garagem, int cont, int codigo,  int color, int *id_Existent
     }    
     return 0;
 
-
 }
 
 void checkingColor(int *color) {
@@ -129,14 +129,13 @@ int checkingGaragem(Garage *garagem, int i) {
     return 0;
 }
 
-void relatorioGeral() {
-    Garage garagem;
+void relatorioGeral(Garage *garagem) {
     int i, total = 0;
     for(i = 0; i < 2; i++) {
-        printf("ID: %d\n", garagem.carro[i].code);
-        printf("Cor: %d\n", garagem.carro[i].color);
-        printf("Quantidade: %d\n\n", garagem.carro[i].quantity);
-        total += garagem.carro[i].quantity;
+        printf("ID: %d\n", garagem->carro[i].code);
+        printf("Cor: %d\n", garagem->carro[i].color);
+        printf("Quantidade: %d\n\n", garagem->carro[i].quantity);
+        total += garagem->carro[i].quantity;
     }
     printf("Total de carros: %d\n", total);
 }
