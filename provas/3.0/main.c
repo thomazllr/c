@@ -3,12 +3,15 @@
 
 int main() {
     Car carro[25];
+    counter_Data cont = {0};
 
-    createFile(carro);
+    createFile(carro, &cont);
+
+    printf("%d\n", cont.total_registers);
 
     // Relatorios
 
-    relatorioGeral();
+    relatorioGeral(carro, cont.total_registers);
 
     return 0;
 }

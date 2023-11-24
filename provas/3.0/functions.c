@@ -2,40 +2,39 @@
 #include <stdlib.h>
 #include "header.h"
 
-int cont = 0;
-
-void createFile(Car carro[25]) {
+void createFile(Car carro[25], counter_Data *cont) {
     FILE *file = fopen("binario", "rb");
     if (file == NULL) {
-        cont = readData(carro);
+        readData(carro, cont);
         updateFile(carro, cont);
+        fill(carro, cont);
         fclose(file);
     }
     fill(carro, cont);
 }
 
-void updateFile(Car carro[25], int cont) {
+void updateFile(Car carro[25], counter_Data *cont) {
     int i;
     FILE *file;
     file = fopen("binario", "wb");
-    for(i = 0; i < 2 ; i++) {
+    for(i = 0; i < cont->total_registers  ; i++) {
         fwrite(&carro[i], sizeof(Car), 1, file);
         
     }
     fclose(file);
 }
 
-void fill(Car carro[25], int cont) {
+void fill(Car carro[25], counter_Data *cont) {
     FILE *file;
     int i;
     file = fopen("binario", "rb");
-    for(i = 0; i < 2 ; i++) {
+    for(i = 0; i < cont->total_registers ; i++) {
         fread(&carro[i], sizeof(Car), 1, file);
     }
     fclose(file);
 }
 
-int readData(Car carro[25]) {
+void readData(Car carro[25], counter_Data *cont) {
     int i, codigo, cor, existe, id_Existente = 0, new_cars, total = 0, max = 0;
     char op;
     for(i=0;i<25;i++) 
@@ -65,7 +64,7 @@ int readData(Car carro[25]) {
         }
         else {
             printf("Carro nao registrado\n");
-            cont += 1;
+            cont->total_registers++;
             carro[i].code = codigo;
             carro[i].color = cor;
             printf("Quantos carros deseja adicionar? ");
@@ -82,7 +81,6 @@ int readData(Car carro[25]) {
             }
         }
     }
-    return cont;
 }
 
 void corMenu() {
@@ -94,10 +92,10 @@ void corMenu() {
            "\n==> ");
 }
 
-int checkCar(Car carro[25], int cont, int codigo,  int color, int *id_Existente) {
+int checkCar(Car carro[25], counter_Data *cont, int codigo,  int color, int *id_Existente) {
 
     int i;
-    for(i=0;i < cont;i++) {
+    for(i=0;i < cont->total_registers;i++) {
         if(carro[i].code == codigo && carro[i].color == color) {
             *id_Existente = i;
             return 1;     
@@ -129,9 +127,9 @@ int checkingGaragem(Car carro[25], int *total, int i) {
     return 0;
 }
 
-void relatorioGeral(Car carro[25]) {
+void relatorioGeral(Car carro[25], int num) {
     int i, total = 0;
-    for(i = 0; i < 2; i++) {
+    for(i = 0; i < num ; i++) {
         printf("ID: %d\n", carro[i].code);
         printf("Cor: %d\n", carro[i].color);
         printf("Quantidade: %d\n\n", carro[i].quantity);
