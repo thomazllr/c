@@ -12,8 +12,6 @@ typedef struct counter_Data {
 
 } counter_Data;
 
-void createFile(Car carro[25], counter_Data *cont);
-void updateFile(Car carro[25], counter_Data *cont);
 void corMenu();
 void readData(Car carro[25], counter_Data *cont);
 void checkingColor(int *color);

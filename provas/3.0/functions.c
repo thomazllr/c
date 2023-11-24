@@ -2,28 +2,6 @@
 #include <stdlib.h>
 #include "header.h"
 
-void createFile(Car carro[25], counter_Data *cont) {
-    FILE *file = fopen("binario", "rb");
-    if (file == NULL) {
-        readData(carro, cont);
-        updateFile(carro, cont);
-        fill(carro, cont);
-        fclose(file);
-    }
-    fill(carro, cont);
-}
-
-void updateFile(Car carro[25], counter_Data *cont) {
-    int i;
-    FILE *file;
-    file = fopen("binario", "wb");
-    for(i = 0; i < cont->total_registers  ; i++) {
-        fwrite(&carro[i], sizeof(Car), 1, file);
-        
-    }
-    fclose(file);
-}
-
 void fill(Car carro[25], counter_Data *cont) {
     FILE *file;
     int i;
