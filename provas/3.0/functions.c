@@ -2,14 +2,17 @@
 #include <stdlib.h>
 #include "header.h"
 
-void fill(Car carro[25], counter_Data *cont) {
-    FILE *file;
-    int i;
-    file = fopen("binario", "rb");
-    for(i = 0; i < cont->total_registers ; i++) {
-        fread(&carro[i], sizeof(Car), 1, file);
-    }
-    fclose(file);
+
+void menu()
+{
+    printf("\nO que deseja fazer?\n\n"
+           "1- Relatorio Geral\n"
+           "2- Consulta por cor\n"
+           "3- Relatorio por Codigo\n"
+           "4- Buscar por veiculo\n"
+           "5- Cadastrar mais um veiculo\n"
+           "6- Sair\n"
+           "Option ==> ");
 }
 
 void readData(Car carro[25], counter_Data *cont) {
@@ -105,13 +108,146 @@ int checkingGaragem(Car carro[25], int *total, int i) {
     return 0;
 }
 
+void checkCor(int color)
+{
+    if (color == 1)
+    {
+        printf("\033[47;30mBranco\033[0m\n");
+    }
+    else if (color == 2)
+    {
+        printf("\033[40;37mPreto\033[0m\n");
+    }
+    else if (color == 3)
+    {
+        printf("\033[41;30mVermelho\033[0m\n");
+    }
+    else
+        printf("\033[47;30mCinza!\033[0m\n");
+}
+
 void relatorioGeral(Car carro[25], int num) {
     int i, total = 0;
+    system("cls");
     for(i = 0; i < num ; i++) {
         printf("ID: %d\n", carro[i].code);
-        printf("Cor: %d\n", carro[i].color);
+        printf("Cor: ");
+        checkCor(carro[i].color);
         printf("Quantidade: %d\n\n", carro[i].quantity);
         total += carro[i].quantity;
     }
     printf("Total de carros: %d\n", total);
+    system("pause");
 }
+
+void relatorioCores(Car carro[25], int num)
+{
+    int total = 0, cor;
+    system("cls");
+    printf("Digite um cor: ");
+    scanf("%d", &cor);
+    for (int i = 0; i < num; i++)
+    {
+            if (carro[i].color == cor)
+            {
+                printf("==========\n");
+                printf("Codigo: %d\n", carro[i].code);
+                printf("Cor: ");
+                checkCor(cor);
+                total += carro[i].quantity;
+            }
+    }
+    printf("Total de carros da respectiva cor: %d\n", total);
+    system("pause");
+}
+
+void relatorioCodigo(Car carro[25], int num) 
+{
+    int total = 0, codigo;
+    system("cls");
+    printf("Digite o codigo do veiculo: ");
+    scanf("%d", &codigo);
+    for (int i = 0; i < num; i++)
+    {
+            if (codigo == carro[i].code)
+            {
+                printf("==========\n");
+                printf("Codigo: %d\n", carro[i].code);
+                printf("Cor: ");
+                checkCor(carro[i].color);
+                printf("Quantidade: %d\n", carro[i].quantity);
+                printf("==========\n");
+                total += carro[i].quantity;
+            }
+        }
+    printf("Total de veiculos com o mesmo codigo: %d\n", total);
+    system("pause");
+
+}
+
+void relatorioVeiculo(Car carro[25], int num)
+{
+    int codigo, color;
+    system("cls");
+    printf("Digite o codigo: ");
+    scanf("%d", &codigo);
+    printf("Digite a cor: ");
+    scanf("%d", &color);
+    for (int i = 0; i < num; i++)
+    {
+        if (carro[i].code == codigo && carro[i].color == color)
+        {
+            printf("==========\n");
+            printf("Codigo: %d\n", carro[i].code);
+            printf("Cor: ");
+            checkCor(color);
+            printf("Quantidade: %d\n", carro[i].quantity);
+            printf("==========\n");
+            system("pause");
+            return;
+        }
+        printf("\033[31mCarro nao existente\033[0m\n");
+        return;     
+    }
+}
+
+void addOneVehicle(Car carro[25], int *num) 
+{
+    int codigo, cor, existe, id_Existente, limite, garagem = 0;
+    counter_Data *cont;
+    cont->total_registers = *num;
+    if (*num < 25)
+            {
+                printf("Digite o codigo do novo veiculo ==> ");
+                scanf("%d", &codigo);
+                printf("Digite a cor do novo veiculo ==> ");
+                scanf("%d", &cor);
+                existe = checkCar(carro, cont, codigo, cor, &id_Existente);
+                if (existe)
+                {
+                    printf("\033[34mCarro existente\033[0m\n");
+                    carro[id_Existente].quantity += 1;
+                    garagem += 1;
+                    limite = checkingGaragem(carro, &garagem, id_Existente);
+                    if (limite)
+                    {
+                        return;
+                    }
+                }
+                *num += 1;
+                carro[*num].code = codigo;
+                carro[*num].color = cor;
+                carro[*num].quantity = 1;
+                garagem += 1;
+                limite = checkingGaragem(carro, &garagem, *num);
+                if (limite)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                printf("\033[31mNao eh possivel adicionar mais carros novos.\033[0m\n");
+            }
+            return;
+    }
