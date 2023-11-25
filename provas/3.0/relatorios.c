@@ -10,17 +10,16 @@ int main() {
     
     if (file == NULL)
     {
-        printf("\nERROR: Arquivo inexistente.\n");
+        printf("\nERROR: Arquivo inexistente.\033[0m\n");
         fclose(file);
         return 1;
     }
-    printf("\nResgatando dados!\n");
+    printf(GREEN "Restaurando dados!" RESET "\n");
 
-    for(int i = 0; i < 2 ; i++) {
-        fread(&carro[i], sizeof(Car), 1, file);
-    }
+    fread(&carro, sizeof(Car), 25, file);
     fread(&cont, sizeof(counter_Data), 1, file);
     fclose(file);
+
 
     relatorioGeral(carro, cont.total_registers);
 

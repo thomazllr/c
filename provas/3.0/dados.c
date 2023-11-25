@@ -6,23 +6,23 @@ int main() {
 
     counter_Data cont = {0};
 
-    FILE *file = fopen("binario", "ab");
+    FILE *file = fopen("binario", "wb");
 
     readData(carro, &cont);
-
     
     if (file == NULL)
     {
-        printf("\nERROR: Arquivo inexistente.\n");
+        printf(RED "ERROR: Arquivo inexistente" RESET "\n");
         fclose(file);
         return 1;
     }
-    printf("\nArquivo salvo com sucesso!\n");
-
-    for (int i = 0; i < 2 ; i++) {
-        fwrite(&carro[i], sizeof(Car), 1, file);
-    }
+    printf(GREEN "\nArquivo salvo com sucesso!" RESET "\n");
+ 
+    fwrite(&carro, sizeof(Car), 25, file);
     fwrite(&cont, sizeof(counter_Data), 1, file);
+
+    printf("%d\n\n", cont.total_registers);
+
     fclose(file);
     return 0;
 }

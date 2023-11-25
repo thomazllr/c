@@ -1,3 +1,7 @@
+#define RED "\033[0;31m"
+#define GREEN "\033[0;32m"
+#define RESET "\033[0m"
+
 typedef struct Car {
     int code;
     int color;
@@ -6,10 +10,6 @@ typedef struct Car {
 
 typedef struct counter_Data {
     int total_registers;
-    int total_by_code;
-    int total_by_color;
-    int one_by_code_color;
-
 } counter_Data;
 
 void corMenu();

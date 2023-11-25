@@ -42,7 +42,7 @@ void readData(Car carro[25], counter_Data *cont) {
         }
         else {
             printf("Carro nao registrado\n");
-            cont->total_registers++;
+            cont->total_registers += 1;
             carro[i].code = codigo;
             carro[i].color = cor;
             printf("Quantos carros deseja adicionar? ");
