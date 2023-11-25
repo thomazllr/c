@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "header.h"
 
-
 void menu()
 {
     printf("\nO que deseja fazer?\n\n"
@@ -15,10 +14,11 @@ void menu()
            "Option ==> ");
 }
 
-void readData(Car carro[25], counter_Data *cont) {
-    int i, codigo, cor, existe, id_Existente = 0, new_cars, total = 0, max = 0;
+void readData(Car carro[25], counter_Data *cont)
+{
+    int i, codigo, cor, existe, id_Existente = 0, new_cars, max = 0;
     char op;
-    for(i=0;i<25;i++) 
+    for (i = 0; i < 25; i++)
     {
         printf("Digite o ID do veiculo: ");
         scanf("%d", &codigo);
@@ -26,46 +26,53 @@ void readData(Car carro[25], counter_Data *cont) {
         scanf("%d", &cor);
         checkingColor(&cor);
         existe = checkCar(carro, cont, codigo, cor, &id_Existente);
-        if(existe) {
+        if (existe)
+        {
             i = i - 1;
             printf("Carro existente!\n");
             printf("Quantos carros novos deseja adicionar? ");
             scanf("%d", &new_cars);
             carro[id_Existente].quantity += new_cars;
-            total += new_cars;
-            max = checkingGaragem(carro, &total, id_Existente);
-            if(max) {
+            cont->total_vehicles += new_cars;
+            max = checkingGaragem(carro, cont, id_Existente);
+            if (max)
+            {
                 break;
             }
             printf("Deseja adicionar mais carros? (S/N) ");
             scanf(" %c", &op);
-            if(op == 'n') {
+            if (op == 'n')
+            {
                 break;
             }
         }
-        else {
-            printf("Carro nao registrado\n");
+        else
+        {
+            printf(RED "Carro nao registrado" RESET "\n");
             cont->total_registers += 1;
             carro[i].code = codigo;
             carro[i].color = cor;
             printf("Quantos carros deseja adicionar? ");
             scanf("%d", &carro[i].quantity);
-            total += carro[i].quantity;
-            max = checkingGaragem(carro, &total, i);
-            if(max == 1) {
+            cont->total_vehicles += carro[i].quantity;
+            max = checkingGaragem(carro, cont, i);
+            if (max == 1)
+            {
                 break;
             }
             printf("Deseja adicionar mais carros? (S/N) ");
             scanf(" %c", &op);
-            if(op == 'n') {
+            if (op == 'n')
+            {
                 break;
             }
         }
     }
 }
 
-void corMenu() {
-        printf("\nDigite a cor do veiculo\n"
+void corMenu()
+{
+    printf("\nDigite a cor do veiculo\n"
            "1-Branco\n"
            "2-Preto\n"
            "3-Vermelho\n"
@@ -73,35 +80,54 @@ void corMenu() {
            "\n==> ");
 }
 
-int checkCar(Car carro[25], counter_Data *cont, int codigo,  int color, int *id_Existente) {
+int checkCar(Car carro[25], counter_Data *cont, int codigo, int color, int *id_Existente)
+{
 
     int i;
-    for(i=0;i < cont->total_registers;i++) {
-        if(carro[i].code == codigo && carro[i].color == color) {
+    for (i = 0; i < cont->total_registers; i++)
+    {
+        if (carro[i].code == codigo && carro[i].color == color)
+        {
             *id_Existente = i;
-            return 1;     
+            return 1;
         }
-    }    
+    }
     return 0;
+}
+int checkCar2(Car carro[25], counter_Data cont, int codigo, int color, int *id_Existente)
+{
 
+    int i;
+    for (i = 0; i < cont.total_registers; i++)
+    {
+        if (carro[i].code == codigo && carro[i].color == color)
+        {
+            *id_Existente = i;
+            return 1;
+        }
+    }
+    return 0;
 }
 
-void checkingColor(int *color) {
-    if(*color < 1 || *color > 4) {
+void checkingColor(int *color)
+{
+    if (*color < 1 || *color > 4)
+    {
         printf("Cor inválida, digite novamente: ");
         scanf("%d", color);
         checkingColor(color);
     }
 }
 
-int checkingGaragem(Car carro[25], int *total, int i) {
+int checkingGaragem(Car carro[25], counter_Data *cont, int i)
+{
 
     int excesso;
-    if (*total > 150)
+    if (cont->total_vehicles > 150)
     {
         printf("Limite maximo atingindo!\n");
-        excesso = *total - 150;
-        *total -= excesso;
+        excesso = cont->total_vehicles - 150;
+        cont->total_vehicles -= excesso;
         carro[i].quantity -= excesso;
         return 1;
     }
@@ -126,10 +152,12 @@ void checkCor(int color)
         printf("\033[47;30mCinza!\033[0m\n");
 }
 
-void relatorioGeral(Car carro[25], int num) {
+void relatorioGeral(Car carro[25], int num)
+{
     int i, total = 0;
     system("cls");
-    for(i = 0; i < num ; i++) {
+    for (i = 0; i < num; i++)
+    {
         printf("ID: %d\n", carro[i].code);
         printf("Cor: ");
         checkCor(carro[i].color);
@@ -148,20 +176,20 @@ void relatorioCores(Car carro[25], int num)
     scanf("%d", &cor);
     for (int i = 0; i < num; i++)
     {
-            if (carro[i].color == cor)
-            {
-                printf("==========\n");
-                printf("Codigo: %d\n", carro[i].code);
-                printf("Cor: ");
-                checkCor(cor);
-                total += carro[i].quantity;
-            }
+        if (carro[i].color == cor)
+        {
+            printf("==========\n");
+            printf("Codigo: %d\n", carro[i].code);
+            printf("Cor: ");
+            checkCor(cor);
+            total += carro[i].quantity;
+        }
     }
     printf("Total de carros da respectiva cor: %d\n", total);
     system("pause");
 }
 
-void relatorioCodigo(Car carro[25], int num) 
+void relatorioCodigo(Car carro[25], int num)
 {
     int total = 0, codigo;
     system("cls");
@@ -169,20 +197,19 @@ void relatorioCodigo(Car carro[25], int num)
     scanf("%d", &codigo);
     for (int i = 0; i < num; i++)
     {
-            if (codigo == carro[i].code)
-            {
-                printf("==========\n");
-                printf("Codigo: %d\n", carro[i].code);
-                printf("Cor: ");
-                checkCor(carro[i].color);
-                printf("Quantidade: %d\n", carro[i].quantity);
-                printf("==========\n");
-                total += carro[i].quantity;
-            }
+        if (codigo == carro[i].code)
+        {
+            printf("==========\n");
+            printf("Codigo: %d\n", carro[i].code);
+            printf("Cor: ");
+            checkCor(carro[i].color);
+            printf("Quantidade: %d\n", carro[i].quantity);
+            printf("==========\n");
+            total += carro[i].quantity;
         }
+    }
     printf("Total de veiculos com o mesmo codigo: %d\n", total);
     system("pause");
-
 }
 
 void relatorioVeiculo(Car carro[25], int num)
@@ -207,47 +234,52 @@ void relatorioVeiculo(Car carro[25], int num)
             return;
         }
         printf("\033[31mCarro nao existente\033[0m\n");
-        return;     
+        return;
     }
 }
 
-void addOneVehicle(Car carro[25], int *num) 
+void addOneVehicle(Car carro[25], counter_Data *cont)
 {
     int codigo, cor, existe, id_Existente, limite, garagem = 0;
-    counter_Data *cont;
-    cont->total_registers = *num;
-    if (*num < 25)
+    int i = 0;
+    printf("%d\n\n", cont->total_registers);
+    if (cont->total_registers < 25)
+    {
+        printf("Digite o codigo do novo veiculo ==> ");
+        scanf("%d", &codigo);
+        printf("Digite a cor do novo veiculo ==> ");
+        scanf("%d", &cor);
+        existe = checkCar(carro, cont, codigo, cor, &id_Existente);
+        if (existe)
+        {
+            cont->total_registers -= 1;
+            printf(GREEN "Carro existente!" RESET "\n");
+            carro[id_Existente].quantity += 1;
+            cont->total_vehicles += 1;
+            limite = checkingGaragem(carro, cont, id_Existente);
+            if (limite)
             {
-                printf("Digite o codigo do novo veiculo ==> ");
-                scanf("%d", &codigo);
-                printf("Digite a cor do novo veiculo ==> ");
-                scanf("%d", &cor);
-                existe = checkCar(carro, cont, codigo, cor, &id_Existente);
-                if (existe)
-                {
-                    printf("\033[34mCarro existente\033[0m\n");
-                    carro[id_Existente].quantity += 1;
-                    garagem += 1;
-                    limite = checkingGaragem(carro, &garagem, id_Existente);
-                    if (limite)
-                    {
-                        return;
-                    }
-                }
-                *num += 1;
-                carro[*num].code = codigo;
-                carro[*num].color = cor;
-                carro[*num].quantity = 1;
-                garagem += 1;
-                limite = checkingGaragem(carro, &garagem, *num);
-                if (limite)
-                {
-                    return;
-                }
+                return;
             }
-            else
+        }
+        else
+        {
+            printf(RED "Carro nao registrado" RESET "\n");
+            carro[cont->total_registers].code = codigo;
+            carro[cont->total_registers].color = cor;
+            carro[cont->total_registers].quantity = 1;
+            cont->total_vehicles += 1;
+            limite = checkingGaragem(carro, cont, cont->total_registers);
+            cont->total_registers += 1;
+            if (limite)
             {
-                printf("\033[31mNao eh possivel adicionar mais carros novos.\033[0m\n");
+                return;
             }
-            return;
+        }
     }
+    else
+    {
+        printf("\033[31mNao eh possivel adicionar mais carros novos.\033[0m\n");
+    }
+    return;
+}
