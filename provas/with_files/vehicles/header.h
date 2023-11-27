@@ -4,15 +4,15 @@
 
 typedef struct Car
 {
-    int code;
-    int color;
-    int quantity;
+    int code,
+        color,
+        quantity;
 } Car;
 
 typedef struct counter_Data
 {
-    int total_registers;
-    int total_vehicles;
+    int total_registers,
+        total_vehicles;
 } counter_Data;
 
 // Menus

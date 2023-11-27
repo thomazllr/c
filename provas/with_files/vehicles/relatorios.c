@@ -55,10 +55,9 @@ int main()
         fclose(file);
         return 1;
     }
-    printf(GREEN "Dados salvos!" RESET "\n");
-
     fwrite(&carro, sizeof(Car), 25, file);
     fwrite(&cont, sizeof(counter_Data), 1, file);
+    printf(GREEN "Dados salvos!" RESET "\n");
 
     return 0;
 }
