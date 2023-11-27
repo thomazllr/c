@@ -32,4 +32,4 @@ void relatorioGeral(Car carro[25], int num);
 void relatorioCores(Car carro[25], int num);
 void relatorioCodigo(Car carro[25], int num);
 void relatorioVeiculo(Car carro[25], int num);
-void addOneVehicle();
+void addOneVehicle(Car carro[25], counter_Data *cont);
