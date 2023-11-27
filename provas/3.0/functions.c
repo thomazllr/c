@@ -94,20 +94,6 @@ int checkCar(Car carro[25], counter_Data *cont, int codigo, int color, int *id_E
     }
     return 0;
 }
-int checkCar2(Car carro[25], counter_Data cont, int codigo, int color, int *id_Existente)
-{
-
-    int i;
-    for (i = 0; i < cont.total_registers; i++)
-    {
-        if (carro[i].code == codigo && carro[i].color == color)
-        {
-            *id_Existente = i;
-            return 1;
-        }
-    }
-    return 0;
-}
 
 void checkingColor(int *color)
 {
@@ -249,10 +235,10 @@ void addOneVehicle(Car carro[25], counter_Data *cont)
         scanf("%d", &codigo);
         printf("Digite a cor do novo veiculo ==> ");
         scanf("%d", &cor);
+        checkingColor(&cor);
         existe = checkCar(carro, cont, codigo, cor, &id_Existente);
         if (existe)
         {
-            cont->total_registers -= 1;
             printf(GREEN "Carro existente!" RESET "\n");
             carro[id_Existente].quantity += 1;
             cont->total_vehicles += 1;

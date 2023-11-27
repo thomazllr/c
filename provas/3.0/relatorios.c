@@ -5,9 +5,9 @@ int main()
 {
     Car carro[25];
     counter_Data cont = {0};
-    int op;
+    int op, i;
 
-    FILE *file = fopen("binario", "rb");
+    FILE *file = fopen("binario", "rb+");
 
     if (file == NULL)
     {
@@ -19,7 +19,6 @@ int main()
 
     fread(&carro, sizeof(Car), 25, file);
     fread(&cont, sizeof(counter_Data), 1, file);
-    fclose(file);
 
     do
     {
@@ -47,6 +46,19 @@ int main()
         }
 
     } while (op != 6);
+
+    file = fopen("binario", "wb");
+
+    if (file == NULL)
+    {
+        printf("\nERROR: Arquivo inexistente.\033[0m\n");
+        fclose(file);
+        return 1;
+    }
+    printf(GREEN "Dados salvos!" RESET "\n");
+
+    fwrite(&carro, sizeof(Car), 25, file);
+    fwrite(&cont, sizeof(counter_Data), 1, file);
 
     return 0;
 }

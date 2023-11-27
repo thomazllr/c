@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "header.h"
 
-int main() {
+int main()
+{
     Car carro[25];
 
     counter_Data cont = {0};
@@ -9,7 +10,7 @@ int main() {
     FILE *file = fopen("binario", "wb");
 
     readData(carro, &cont);
-    
+
     if (file == NULL)
     {
         printf(RED "ERROR: Arquivo inexistente" RESET "\n");
@@ -17,7 +18,7 @@ int main() {
         return 1;
     }
     printf(GREEN "\nArquivo salvo com sucesso!" RESET "\n");
- 
+
     fwrite(&carro, sizeof(Car), 25, file);
     fwrite(&cont, sizeof(counter_Data), 1, file);
 
