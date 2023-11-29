@@ -29,6 +29,9 @@ int main()
         case 1:
             reports_byweek(producers, data_counter);
             break;
+        case 2:
+            reports_byproducer(producers, data_counter);
+            break;
 
         default:
             break;
